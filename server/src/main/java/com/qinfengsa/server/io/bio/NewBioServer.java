@@ -23,7 +23,7 @@ public class NewBioServer extends AbstractServer {
 
     static ExecutorService pool = Executors.newFixedThreadPool(3);
 
-    protected NewBioServer(ServerConfig config) {
+    public NewBioServer(ServerConfig config) {
         super(config);
         try {
             server = new ServerSocket(config.getPort());
@@ -34,7 +34,7 @@ public class NewBioServer extends AbstractServer {
     }
 
     @Override
-    protected void start() throws IOException {
+    public void start() throws IOException {
         Serialization serialization = getConfig().getSerialization();
         while (true) {
             Socket socket = server.accept();

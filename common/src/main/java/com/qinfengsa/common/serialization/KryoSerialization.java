@@ -66,6 +66,10 @@ public class KryoSerialization implements Serialization {
         @Override
         public void writeObject(Object obj) throws IOException {
             kryo.writeObjectOrNull(output, obj, obj.getClass());
+        }
+
+        @Override
+        public void flushBuffer() throws IOException {
             output.flush();
         }
     }

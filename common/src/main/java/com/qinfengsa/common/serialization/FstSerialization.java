@@ -32,13 +32,17 @@ public class FstSerialization implements Serialization {
         private final FSTObjectOutput output;
 
         FstObjectOutput(OutputStream outputStream) {
-
             this.output = conf.getObjectOutput(outputStream);
         }
 
         @Override
         public void writeObject(Object obj) throws IOException {
             output.writeObject(obj);
+        }
+
+        @Override
+        public void flushBuffer() throws IOException {
+            output.flush();
         }
     }
 

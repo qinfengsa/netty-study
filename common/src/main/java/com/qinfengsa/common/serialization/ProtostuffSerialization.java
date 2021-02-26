@@ -49,6 +49,11 @@ public class ProtostuffSerialization implements Serialization {
             dos.writeInt(bytes.length);
             dos.write(bytes);
         }
+
+        @Override
+        public void flushBuffer() throws IOException {
+            dos.flush();
+        }
     }
 
     static class ProtostuffObjectInput implements ObjectInput {

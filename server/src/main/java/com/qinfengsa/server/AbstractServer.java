@@ -20,5 +20,5 @@ public abstract class AbstractServer {
     }
 
     // 启动
-    protected abstract void start() throws IOException;
+    public abstract void start() throws IOException;
 }

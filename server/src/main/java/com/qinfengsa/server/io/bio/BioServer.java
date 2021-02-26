@@ -30,12 +30,11 @@ public class BioServer extends AbstractServer {
     }
 
     @Override
-    protected void start() throws IOException {
+    public void start() throws IOException {
         Serialization serialization = getConfig().getSerialization();
         // 循环监听
         while (true) {
             Socket socket = server.accept();
-
             new ClientHandler(socket, serialization).run();
         }
     }

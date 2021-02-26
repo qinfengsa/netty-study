@@ -5,6 +5,7 @@ import com.caucho.hessian.io.Hessian2Output;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Hessian 序列化
@@ -12,6 +13,7 @@ import java.io.OutputStream;
  * @author qinfengsa
  * @date 2021/2/25 14:33
  */
+@Slf4j
 public class HessianSerialization implements Serialization {
 
     @Override
@@ -34,6 +36,11 @@ public class HessianSerialization implements Serialization {
         @Override
         public void writeObject(Object obj) throws IOException {
             output.writeObject(obj);
+        }
+
+        @Override
+        public void flushBuffer() throws IOException {
+            output.flushBuffer();
         }
     }
 

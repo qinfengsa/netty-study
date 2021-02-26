@@ -21,7 +21,6 @@ public class ClientHandler implements Runnable {
     private final Serialization serialization;
 
     public ClientHandler(Socket socket, Serialization serialization) {
-
         this.socket = socket;
         this.serialization = serialization;
     }
@@ -43,6 +42,7 @@ public class ClientHandler implements Runnable {
             log.debug("服务端发送数据:{}", response);
             ObjectOutput output = serialization.serialize(socket.getOutputStream());
             output.writeObject(response);
+            output.flushBuffer();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }

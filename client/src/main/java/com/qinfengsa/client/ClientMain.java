@@ -1,7 +1,7 @@
 package com.qinfengsa.client;
 
-import com.qinfengsa.client.io.bio.BioClient;
-import com.qinfengsa.common.serialization.HessianSerialization;
+import com.qinfengsa.client.io.nio.NioClient;
+import com.qinfengsa.common.serialization.FstSerialization;
 import com.qinfengsa.common.serialization.Serialization;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,14 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ClientMain {
 
     public static void main(String[] args) {
-        Serialization serialization = new HessianSerialization();
+        Serialization serialization = new FstSerialization();
         ClientConfig config =
                 ClientConfig.builder()
                         .addr("localhost")
                         .port(8080)
                         .serialization(serialization)
                         .build();
-        AbstractClient client = new BioClient(config);
+        AbstractClient client = new NioClient(config);
         client.send();
     }
 }
