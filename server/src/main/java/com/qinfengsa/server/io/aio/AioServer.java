@@ -39,10 +39,12 @@ public class AioServer extends AbstractServer {
 
     @Override
     public void start() throws IOException {
+
         AsynchronousChannelGroup group = AsynchronousChannelGroup.withCachedThreadPool(pool, 1);
         server = AsynchronousServerSocketChannel.open(group);
         // 绑定端口
         server.bind(new InetSocketAddress(getConfig().getPort()));
+        log.debug("服务端启动-端口号:{}", getConfig().getPort());
         // 注册回调
         server.accept(
                 this,
@@ -79,6 +81,8 @@ public class AioServer extends AbstractServer {
                         log.error("IO失败:{}", exc.getMessage(), exc);
                     }
                 });
+        // 向客户端发送响应
+        write(client);
     }
 
     /**

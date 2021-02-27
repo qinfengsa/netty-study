@@ -1,8 +1,8 @@
 package com.qinfengsa.server;
 
-import com.qinfengsa.common.serialization.FstSerialization;
+import com.qinfengsa.common.serialization.HessianSerialization;
 import com.qinfengsa.common.serialization.Serialization;
-import com.qinfengsa.server.io.nio.NioServer;
+import com.qinfengsa.server.netty.NettyServer;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ServerMain {
 
     public static void main(String[] args) throws IOException {
-        Serialization serialization = new FstSerialization();
+        Serialization serialization = new HessianSerialization();
         ServerConfig config =
                 ServerConfig.builder().port(8080).serialization(serialization).build();
-        AbstractServer server = new NioServer(config);
+        AbstractServer server = new NettyServer(config);
 
         server.start();
     }

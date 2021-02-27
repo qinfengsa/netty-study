@@ -3,6 +3,7 @@ package com.qinfengsa.client.io.aio;
 import com.qinfengsa.client.AbstractClient;
 import com.qinfengsa.client.ClientConfig;
 import com.qinfengsa.common.dto.RpcRequest;
+import com.qinfengsa.common.dto.RpcResponse;
 import com.qinfengsa.common.serialization.ObjectInput;
 import com.qinfengsa.common.serialization.ObjectOutput;
 import java.io.ByteArrayInputStream;
@@ -28,7 +29,7 @@ public class AioClient extends AbstractClient {
     // 服务地址
     private final InetSocketAddress serverAddress;
 
-    protected AioClient(ClientConfig config) {
+    public AioClient(ClientConfig config) {
         super(config);
         serverAddress = new InetSocketAddress(config.getAddr(), config.getPort());
         try {
@@ -85,6 +86,12 @@ public class AioClient extends AbstractClient {
                         log.error("IO失败:{}", exc.getMessage(), exc);
                     }
                 });
+
+        try {
+            Thread.sleep(Integer.MAX_VALUE);
+        } catch (InterruptedException ex) {
+            log.error(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -95,11 +102,11 @@ public class AioClient extends AbstractClient {
      */
     private void read(ByteBuffer buffer, int len) {
 
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(buffer.array(), 0, len); ) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(buffer.array(), 0, len)) {
 
             ObjectInput input = getConfig().getSerialization().deserialize(bis);
-            RpcRequest request = input.readObject(RpcRequest.class);
-            log.info("服务端收到信息:{}", request);
+            RpcResponse response = input.readObject(RpcResponse.class);
+            log.debug("收到服务器响应:{}", response);
             Thread.sleep(1000);
         } catch (IOException e) {
             log.error("IO错误:{}", e.getMessage(), e);

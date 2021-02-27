@@ -68,12 +68,7 @@
                 <version>${commons.lang3.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.msgpack/msgpack -->
-            <dependency>
-                <groupId>org.msgpack</groupId>
-                <artifactId>msgpack</artifactId>
-                <version>${msgpack.version}</version>
-            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
             <dependency>
                 <groupId>org.javassist</groupId>
